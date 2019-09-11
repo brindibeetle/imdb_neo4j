@@ -1,0 +1,305 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="stylesheet/tabs.css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet/neo4j.css"/>
+    <title>Movie database IMDB</title>
+</head>
+
+<body>
+<!-- <div id="graph"></div> -->
+
+<div role="navigation" class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header col-sm-6 col-md-6">
+                <div class="logo-well">
+                    <a href="https://www.lunatech.com">
+                        <img src="images/Lunatech_Logo_Line_RGB_Pos_A.png" alt="Simplify your I.T." id="logo">
+                    </a>
+                </div>
+                <div class="navbar-brand">
+                    <div class="brand">IMDB Movies</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tab links -->
+<div class="tab">
+  <button class="tablink" onclick="openRequirement(event, 'requirement1')">Requirement #1</button>
+  <button class="tablink" onclick="openRequirement(event, 'requirement2')">Requirement #2</button>
+  <button class="tablink" onclick="openRequirement(event, 'requirement3')">Requirement #3</button>
+</div>
+
+<!-- Requirement #1 -->
+<div id="requirement1" class="tabcontent">
+	<h5>Requirement #1 (easy):
+
+IMDb copycat: Present the user with endpoint for allowing them to search by movie’s primary title or original title. The outcome should be related information to that title, including cast and crew.
+	</h5>
+	<div role="navigation" class="navbar navbar-default navbar-static-top">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-sm-6 col-md-6">
+	                <ul class="nav navbar-nav">
+	                    <li>
+	                        <form role="searchTitle" class="navbar-form" id="searchTitle">
+	                            <div class="form-group">
+	                                <input type="text" value="Taming" placeholder="Search for Movie Title" class="form-control" name="searchTitle">
+	                            </div>
+	                            <button class="btn btn-default" type="submit">Search</button>
+	                        </form>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="row">
+	    <div class="col-md-5">
+	        <div class="panel panel-default">
+	            <div class="panel-heading">Search Results</div>
+	            <table id="resultsMovies" class="table table-striped table-hover">
+	                <thead>
+	                <tr>
+	                    <th class="hidden">Nconst</th>
+	                    <th>Movie</th>
+	                    <th>Released</th>
+	                    <th>Genres</th>
+	                    <th>Rating</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	    <div class="col-md-7">
+	        <div class="panel panel-default">
+	            <div class="panel-heading" id="title-requirement1">Details</div>
+	            <table id="crew-requirement1" class="table table-striped table-hover">
+	            <caption>Crew</caption>
+	                <thead>
+	                <tr>
+	                    <th>Category</th>
+	                    <th>Person</th>
+	                    <th>Job</th>
+	                    <th>Characters</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	</div>
+</div>
+
+<!-- Requirement #2 -->
+<div id="requirement2" class="tabcontent">
+	<h5>Top rated movies: Given a query by the user, you must provide what are the top rated movies for a genre (If the user searches horror, then it should show a list of top rated horror movies).
+	</h5>
+	<div role="navigation" class="navbar navbar-default navbar-static-top">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-sm-6 col-md-6">
+	                <ul class="nav navbar-nav">
+	                    <li>
+	                        <form role="searchGenre" class="navbar-form" id="searchGenre">
+	                            <div class="form-group">
+	                                <input type="text" value="Drama" placeholder="Search for Genre" class="form-control" name="searchGenre">
+	                            </div>
+	                            <button class="btn btn-default" type="submit">Search</button>
+	                        </form>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<div class="row">
+	    <div class="col-md-5">
+	        <div class="panel panel-default">
+	            <div class="panel-heading">Search Results</div>
+	            <table id="resultsGenre" class="table table-striped table-hover">
+	                <thead>
+	                <tr>
+	                    <th class="hidden">Nconst</th>
+	                    <th>Movie</th>
+	                    <th>Released</th>
+	                    <th>Genres</th>
+	                    <th>Rating</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	    <div class="col-md-7">
+	        <div class="panel panel-default">
+	            <div class="panel-heading" id="title-requirement2">Details</div>
+	            <table id="crew-requirement2" class="table table-striped table-hover">
+	            <caption>Crew</caption>
+	                <thead>
+	                <tr>
+	                    <th>Category</th>
+	                    <th>Person</th>
+	                    <th>Job</th>
+	                    <th>Characters</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	</div>
+</div>
+
+<!-- Requirement #3 -->
+<div id="requirement3" class="tabcontent">
+	<h5>Six degrees of Kevin Bacon: Given a query by the user, you must provide what’s the degree of separation between the person (e.g. actor or actress) the user has entered and Kevin Bacon.
+	</h5>
+	<div role="navigation" class="navbar navbar-default navbar-static-top">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-sm-6 col-md-6">
+	                <ul class="nav navbar-nav">
+	                    <li>
+	                        <form role="searchPerson1" class="navbar-form" id="searchPerson1">
+	                            <div class="form-group">
+	                                <input type="text" value="Bitzer" placeholder="Search for Person" class="form-control" name="searchPerson1"></input>
+						            <input type="text" value="empty" class="hidden" name="nconst_requirement3_1"></input>
+	                            </div>
+	                            <button class="btn btn-default" type="submit">Search</button>
+	                        </form>
+	                    </li>
+	                </ul>
+			        <div class="panel panel-default">
+			            <div class="panel-heading" id="heading_requirement3_1">Search Results</div>
+			            <table id="resultsPerson1_requirement3" class="table table-striped table-hover">
+			                <thead>
+			                <tr>
+			                    <th class="hidden">Nconst</th>
+			                    <th>Name</th>
+			                    <th>Birth</th>
+			                    <th>Death</th>
+			                    <th></th>
+			                </tr>
+			                </thead>
+			                <thead class="choosenPerson1"></thead>
+			                <tbody>
+			                </tbody>
+			            </table>
+			        </div>
+	            </div>
+	            
+	            
+	            <div class="col-sm-6 col-md-6">
+	                <ul class="nav navbar-nav">
+	                    <li>
+	                        <form role="searchPerson2" class="navbar-form" id="searchPerson2">
+	                            <div class="form-group">
+	                                <input type="text" value="Griffith" placeholder="Search for Person" class="form-control" name="searchPerson2"></input>
+						            <input type="text" value="empty" class="hidden" name="nconst_requirement3_2"></input>
+	                            </div>
+	                            <button class="btn btn-default" type="submit">Search</button>
+	                        </form>
+	                    </li>
+	                </ul>
+			        <div class="panel panel-default">
+			            <div class="panel-heading" id="heading_requirement3_2">Search Results</div>
+			            <table id="resultsPerson2_requirement3" class="table table-striped table-hover">
+			                <thead>
+			                <tr>
+			                    <th class="hidden">Nconst</th>
+			                    <th>Name</th>
+			                    <th>Birth</th>
+			                    <th>Death</th>
+			                    <th></th>
+			                </tr>
+			                </thead>
+			                <thead class="choosenPerson2"></thead>
+			                <tbody>
+			                </tbody>
+			            </table>
+			        </div>
+	            </div>
+	        </div>
+	            <div class="col-sm-6 col-md-6">
+	                <ul class="nav navbar-nav">
+	                    <li>
+	                        <form role="requirement3_result_form" class="navbar-form" id="requirement3_result_form">
+			                    <button class="btn btn-primary" type="submit">Degree of separation</button>
+			                    <div class="form-group">
+	                                <input type="text" value="degree" placeholder="result" class="form-control" name="requirement3_result"></input>
+	                            </div>
+	                        </form>
+		                </li>
+		            </ul>
+                </div>
+            </div>
+	    </div>
+	</div>
+</div>
+
+<style type="text/css">
+    .node { stroke: #222; stroke-width: 1.5px; }
+    .node.actor { fill: #888; }
+    .node.movie { fill: #BBB; }
+    .link { stroke: #999; stroke-opacity: .6; stroke-width: 1px; }
+</style>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="javascript/tabs.js"></script>
+<script type="text/javascript" src="javascript/searchdatabase.js"></script>
+<script type="text/javascript">
+    var width = 800, height = 800;
+
+    var force = d3.layout.force()
+            .charge(-200).linkDistance(30).size([width, height]);
+
+    var svg = d3.select("#graph").append("svg")
+            .attr("width", "100%").attr("height", "100%")
+            .attr("pointer-events", "all");
+
+    d3.json("/graph", function(error, graph) {
+        if (error) return;
+
+        force.nodes(graph.nodes).links(graph.links).start();
+
+        var link = svg.selectAll(".link")
+                .data(graph.links).enter()
+                .append("line").attr("class", "link");
+
+        var node = svg.selectAll(".node")
+                .data(graph.nodes).enter()
+                .append("circle")
+                .attr("class", function (d) { return "node "+d.label })
+                .attr("r", 10)
+                .call(force.drag);
+
+        // html title attribute
+        node.append("title")
+                .text(function (d) { return d.title; })
+
+        // force feed algo ticks
+        force.on("tick", function() {
+            link.attr("x1", function(d) { return d.source.x; })
+                    .attr("y1", function(d) { return d.source.y; })
+                    .attr("x2", function(d) { return d.target.x; })
+                    .attr("y2", function(d) { return d.target.y; });
+
+            node.attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; });
+        });
+    });
+</script>
+</body>
+</html>
